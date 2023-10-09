@@ -1,3 +1,5 @@
+　　《專案介紹》
+
 　　該個專案為面試作品。專案成品為一組 C/S 架構的網絡服務程式（包括 Server 和 Client），通過 Grpc 控制遠端 RaspberryPi 上的 Led 和 WaterLevel。
 　　該個專案使用 C++ 編寫，使用 Cmake 構建。該個專案演示內容包括 GRpc、PiGpio、GTest、QtWidgetGui。該個專案作為面試作品，程式代碼有所取捨，儘量精簡直觀。
 
