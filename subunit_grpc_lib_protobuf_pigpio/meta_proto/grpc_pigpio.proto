@@ -1,0 +1,39 @@
+syntax = "proto3";
+package ext.grpc_protobuf;
+
+service ServicePiGpio
+{
+  rpc gpioInitialise(google.protobuf.Empty) returns (MsgInt32) {}
+  rpc gpioSetMode(MsgRequestGpioSetMode) returns (MsgInt32) {}
+  rpc gpioRead(MsgUint32) returns (MsgInt32) {}
+  rpc gpioWrite(MsgRequestGpioWrite) returns (MsgInt32) {}
+}
+
+service ServicePiGpioAdvance
+{
+  rpc stream01_pigpio_read(MsgUint32) returns (stream MsgInt32){};
+}
+
+import "google/protobuf/empty.proto";
+message MsgString
+{
+  string content = 1;
+}
+message MsgInt32
+{
+  int32 content = 1;
+}
+message MsgUint32
+{
+  uint32 content = 1;
+}
+message MsgRequestGpioSetMode
+{
+  uint32 param01_gpio = 1;
+  uint32 param02_mode = 2;
+}
+message MsgRequestGpioWrite
+{
+  uint32 param01_gpio = 1;
+  uint32 param02_level = 2;
+}
