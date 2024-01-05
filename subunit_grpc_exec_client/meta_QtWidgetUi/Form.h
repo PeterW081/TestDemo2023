@@ -23,7 +23,6 @@ class Form : public QWidget
 	std::shared_ptr<Ui::Form> m_ui;
 	bool m_flag_is_init = false;
 	std::unique_ptr<ext::device_ctrl::RemoteLed> m_ctrl_led;
-	std::unique_ptr<ext::device_ctrl::RemoteWaterLevel> m_ctrl_waterlevel;
 	std::shared_ptr<std::thread> m_thread_waterlevel_listen_status;
 	void init();
 	void init_connect();

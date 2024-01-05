@@ -50,7 +50,6 @@ Form::Form(QWidget* parent)
 	: QWidget(parent)
 	, m_ui(new Ui::Form())
 	, m_ctrl_led(nullptr)
-	, m_ctrl_waterlevel(nullptr)
 	, m_thread_waterlevel_listen_status(nullptr)
 {
 	m_ui->setupUi(this);
@@ -130,12 +129,9 @@ void Form::func_device_waterlevel_ctrl(Form::InnerEnumDeviceCtrl ctrl)
 	switch(ctrl)
 	{
 		case InnerEnumDeviceCtrl::ENABLE:
-			m_thread_waterlevel_listen_status = nullptr;
-			m_ctrl_waterlevel = std::make_unique<RemoteWaterLevel>(config0::SERVICE_URL, config0::PIN_NUMBER_WATERLEVEL);
 			break;
 		case InnerEnumDeviceCtrl::DISABLE:
 			m_thread_waterlevel_listen_status = nullptr;
-			m_ctrl_waterlevel = nullptr;
 			break;
 	}
 }
@@ -284,10 +280,12 @@ void Form::slot_operate_device_waterlevel_listen_status()
 	};
 	auto func_thread = [this, func_waterlevel_status]() -> void
 	{
+		auto ctrl_waterlevel = std::make_unique<RemoteWaterLevel>(config0::SERVICE_URL, config0::PIN_NUMBER_WATERLEVEL);
+
 		bool is_ok;
 		try
 		{
-			is_ok = this->m_ctrl_waterlevel->listen_status(func_waterlevel_status);
+			is_ok = ctrl_waterlevel->listen_status(func_waterlevel_status);
 		} catch(...)
 		{
 			is_ok = false;
@@ -297,7 +295,6 @@ void Form::slot_operate_device_waterlevel_listen_status()
 	};
 	try
 	{
-		ext::assert::Assert_With_Exception_Is_Not_Null(m_ctrl_waterlevel);
 		m_thread_waterlevel_listen_status = nullptr;
 		m_thread_waterlevel_listen_status = std::make_shared<std::thread>(func_thread);
 		m_thread_waterlevel_listen_status->detach();

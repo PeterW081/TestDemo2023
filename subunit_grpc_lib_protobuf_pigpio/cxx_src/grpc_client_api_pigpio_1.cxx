@@ -1,12 +1,13 @@
-#include "grpc_api_pigpio.h"
-#pragma
+#if(MACROMARK_GRPC_CLIENT == MACROMARK_GRPC_CLIENT_0ENUM_0BOTH || MACROMARK_GRPC_CLIENT == MACROMARK_GRPC_CLIENT_0ENUM_1ONLY_RAW)
+#	include "grpc_client_api_pigpio.h"
+#	pragma
 
 /// std::string ext::grpc_api::Test
-ext::grpc_api::Test::Test(std::string service_url)
-	: PrototypeGrpcApi(std::move(service_url))
+ext::grpc_client_api::Test::Test(std::string service_url)
+	: GrpcClientRaw(std::move(service_url))
 {
 }
-std::string ext::grpc_api::Test::test_echo(const std::string& str)
+std::string ext::grpc_client_api::Test::test_echo(const std::string& str)
 {
 	// rpc test_echo (MsgString) returns (MsgString) {}
 	auto context = grpc::ClientContext();
@@ -22,12 +23,12 @@ std::string ext::grpc_api::Test::test_echo(const std::string& str)
 	}
 	return response.content();
 }
-std::string ext::grpc_api::Test::test_ifconfig()
+std::string ext::grpc_client_api::Test::test_ifconfig()
 {
 	// rpc test_ifconfig(google.protobuf.Empty) returns (MsgString) {}
 	auto context = grpc::ClientContext();
 	auto status = grpc::Status();
-	auto request = define0::Empty();
+	auto request = define0::MsgEmpty();
 	auto response = define0::MsgString();
 
 	status = m_stub->test_ifconfig(&context, request, &response);
@@ -39,16 +40,16 @@ std::string ext::grpc_api::Test::test_ifconfig()
 }
 
 /// ext::grpc_api::PiGpio
-ext::grpc_api::PiGpio::PiGpio(std::string service_url)
-	: PrototypeGrpcApi(std::move(service_url))
+ext::grpc_client_api::PiGpio::PiGpio(std::string service_url)
+	: GrpcClientRaw(std::move(service_url))
 {
 }
-int ext::grpc_api::PiGpio::gpioInitialise(void)
+int ext::grpc_client_api::PiGpio::gpioInitialise(void)
 {
 	// rpc gpioInitialise(google.protobuf.Empty) returns (MsgInt32) {}
 	auto context = grpc::ClientContext();
 	auto status = grpc::Status();
-	auto request = define0::Empty();
+	auto request = define0::MsgEmpty();
 	auto response = define0::MsgInt32();
 
 	status = m_stub->gpioInitialise(&context, request, &response);
@@ -58,7 +59,7 @@ int ext::grpc_api::PiGpio::gpioInitialise(void)
 	}
 	return response.content();
 }
-int ext::grpc_api::PiGpio::gpioSetMode(unsigned gpio, EnumPiGpioMode mode)
+int ext::grpc_client_api::PiGpio::gpioSetMode(unsigned gpio, EnumPiGpioMode mode)
 {
 	// rpc gpioSetMode(MsgRequestGpioSetMode) returns (MsgInt32) {}
 	auto context = grpc::ClientContext();
@@ -75,7 +76,7 @@ int ext::grpc_api::PiGpio::gpioSetMode(unsigned gpio, EnumPiGpioMode mode)
 	}
 	return response.content();
 }
-auto ext::grpc_api::PiGpio::gpioRead(unsigned gpio) -> EnumPiGpioLevel
+auto ext::grpc_client_api::PiGpio::gpioRead(unsigned gpio) -> EnumPiGpioLevel
 {
 	// rpc gpioRead(MsgUint32) returns (MsgInt32) {}
 	auto context = grpc::ClientContext();
@@ -91,7 +92,7 @@ auto ext::grpc_api::PiGpio::gpioRead(unsigned gpio) -> EnumPiGpioLevel
 	}
 	return static_cast<EnumPiGpioLevel>(response.content());
 }
-int ext::grpc_api::PiGpio::gpioWrite(unsigned gpio, EnumPiGpioLevel level)
+int ext::grpc_client_api::PiGpio::gpioWrite(unsigned gpio, EnumPiGpioLevel level)
 {
 	// rpc gpioWrite(MsgRequestGpioWrite) returns (MsgInt32) {}
 	auto context = grpc::ClientContext();
@@ -110,11 +111,11 @@ int ext::grpc_api::PiGpio::gpioWrite(unsigned gpio, EnumPiGpioLevel level)
 }
 
 /// ext::grpc_api::PiGpioAdvance
-ext::grpc_api::PiGpioAdvance::PiGpioAdvance(std::string service_url)
-	: PrototypeGrpcApi(std::move(service_url))
+ext::grpc_client_api::PiGpioAdvance::PiGpioAdvance(std::string service_url)
+	: GrpcClientRaw(std::move(service_url))
 {
 }
-bool ext::grpc_api::PiGpioAdvance::stream01_pigpio_read(unsigned gpio, std::function<bool(EnumPiGpioLevel level)> func)
+bool ext::grpc_client_api::PiGpioAdvance::stream01_pigpio_read(unsigned gpio, std::function<bool(EnumPiGpioLevel level)> func)
 {
 	// rpc stream01_pigpio_read(MsgUint32) returns(stream MsgInt32){};
 	auto context = grpc::ClientContext();
@@ -143,3 +144,4 @@ bool ext::grpc_api::PiGpioAdvance::stream01_pigpio_read(unsigned gpio, std::func
 	}
 	return is_continue && status.ok();
 }
+#endif

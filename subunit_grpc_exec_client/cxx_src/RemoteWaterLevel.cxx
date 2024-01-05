@@ -1,11 +1,11 @@
 #include "remote_gpio/RemoteWaterLevel.h"
 #pragma
 
-using ext::grpc_api::EnumPiGpioLevel;
-using ext::grpc_api::EnumPiGpioMode;
+using ext::grpc_client_api::EnumPiGpioLevel;
+using ext::grpc_client_api::EnumPiGpioMode;
 
 /// ext::remote_gpio::RemoteWaterLevel - static
-auto ext::device_ctrl::RemoteWaterLevel::Cast_To_EnumStatus(ext::grpc_api::EnumPiGpioLevel var) -> EnumStatus
+auto ext::device_ctrl::RemoteWaterLevel::Cast_To_EnumStatus(ext::grpc_client_api::EnumPiGpioLevel var) -> EnumStatus
 {
 	EnumStatus result;
 	switch(var)

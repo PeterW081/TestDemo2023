@@ -3,11 +3,11 @@
 #include "remote_gpio/RemoteLed.h"
 #pragma
 
-using ext::grpc_api::EnumPiGpioLevel;
-using ext::grpc_api::EnumPiGpioMode;
+using ext::grpc_client_api::EnumPiGpioLevel;
+using ext::grpc_client_api::EnumPiGpioMode;
 
 /// ext::remote_gpio::RemoteLed - static
-auto ext::device_ctrl::RemoteLed::Cast_To_EnumStatus(ext::grpc_api::EnumPiGpioLevel var) -> EnumStatus
+auto ext::device_ctrl::RemoteLed::Cast_To_EnumStatus(ext::grpc_client_api::EnumPiGpioLevel var) -> EnumStatus
 {
 	EnumStatus result;
 	switch(var)

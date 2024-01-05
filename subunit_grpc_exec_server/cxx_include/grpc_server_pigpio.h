@@ -6,7 +6,6 @@ namespace ext::grpc_server
 	namespace define0
 	{
 		using namespace ext::grpc_protobuf;
-		using google::protobuf::Empty;
 	}
 	class ServiceImplTest;
 	class ServiceImplPiGpio;
@@ -16,7 +15,7 @@ namespace ext::grpc_server
 class ext::grpc_server::ServiceImplPiGpio : public define0::ServicePiGpio::Service
 {
   public:
-	grpc::Status gpioInitialise(grpc::ServerContext*, const define0::Empty*, define0::MsgInt32*) override;
+	grpc::Status gpioInitialise(grpc::ServerContext*, const define0::MsgEmpty*, define0::MsgInt32*) override;
 	grpc::Status gpioSetMode(grpc::ServerContext*, const define0::MsgRequestGpioSetMode*, define0::MsgInt32*) override;
 	grpc::Status gpioRead(grpc::ServerContext*, const define0::MsgUint32*, define0::MsgInt32*) override;
 	grpc::Status gpioWrite(grpc::ServerContext*, const define0::MsgRequestGpioWrite*, define0::MsgInt32*) override;

@@ -1,16 +1,18 @@
 set(PROJECT_NAME "TestDemo2023_Grpc_Client")
+set(VAR0_PROJECT_PROPERTY0_MACOSX_BUNDLE_GUI_IDENTIFIER "my.example.${PROJECT_NAME}.com")
 
 ###
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION "${CMAKE_VERSION}")
 project("${PROJECT_NAME}")
 ##-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
-##-
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
+
+###
 find_package("Qt${QT_VERSION_MAJOR}" REQUIRED COMPONENTS Widgets)
+qt_standard_project_setup()
 
 ###
 file(GLOB_RECURSE cxx_src "${PROJECT_SOURCE_DIR}/cxx_src/*.cxx" "${PROJECT_SOURCE_DIR}/meta_QtObject/*.cxx" "${PROJECT_SOURCE_DIR}/meta_QtWidgetUi/*.cxx")
@@ -43,12 +45,13 @@ target_link_libraries(
 )
 set_target_properties(
   "${PROJECT_NAME}" PROPERTIES
-  MACOSX_BUNDLE_GUI_IDENTIFIER "my.example.com"
-  MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
-  MACOSX_BUNDLE_SHORT_VERSION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
+  MACOSX_BUNDLE_GUI_IDENTIFIER "${VAR0_PROJECT_PROPERTY0_MACOSX_BUNDLE_GUI_IDENTIFIER}"
   MACOSX_BUNDLE TRUE
-  WIN32_EXECUTABLE TRUE
 )
+if(QT_VERSION_MAJOR EQUAL 6)
+  qt_finalize_executable("${PROJECT_NAME}")
+endif()
+
 
 ###
 if("${OPT_IS_BUILD_GTEST}" AND "${OPT_IS_BUILD_CLIENT}")

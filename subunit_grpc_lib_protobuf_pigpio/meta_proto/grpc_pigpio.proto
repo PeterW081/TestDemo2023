@@ -3,7 +3,7 @@ package ext.grpc_protobuf;
 
 service ServicePiGpio
 {
-  rpc gpioInitialise(google.protobuf.Empty) returns (MsgInt32) {}
+  rpc gpioInitialise(MsgEmpty) returns (MsgInt32) {}
   rpc gpioSetMode(MsgRequestGpioSetMode) returns (MsgInt32) {}
   rpc gpioRead(MsgUint32) returns (MsgInt32) {}
   rpc gpioWrite(MsgRequestGpioWrite) returns (MsgInt32) {}
@@ -14,7 +14,9 @@ service ServicePiGpioAdvance
   rpc stream01_pigpio_read(MsgUint32) returns (stream MsgInt32){};
 }
 
-import "google/protobuf/empty.proto";
+message MsgEmpty
+{
+}
 message MsgString
 {
   string content = 1;

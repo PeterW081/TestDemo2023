@@ -2,7 +2,7 @@
 #pragma
 
 #include <thread>
-#include "grpc_api_pigpio.h"
+#include "grpc_client_api_pigpio.h"
 
 namespace test_config0
 {
@@ -12,15 +12,15 @@ namespace test_config0
 }
 namespace
 {
-	using ext::grpc_api::EnumPiGpioLevel;
-	using ext::grpc_api::EnumPiGpioMode;
+	using ext::grpc_client_api::EnumPiGpioLevel;
+	using ext::grpc_client_api::EnumPiGpioMode;
 }
 
 TEST(Example, Test01_Led)
 {
 	// GTEST_SKIP();
 	static const int PIN_NUMBER = test_config0::PIN_NUMBER_LED;
-	auto itc_pigpio_01 = ext::grpc_api::PiGpio(test_config0::SERVICE_URL);
+	auto itc_pigpio_01 = ext::grpc_client_api::PiGpio(test_config0::SERVICE_URL);
 
 	itc_pigpio_01.gpioSetMode(PIN_NUMBER, EnumPiGpioMode::PI_OUTPUT);
 	switch(itc_pigpio_01.gpioRead(PIN_NUMBER))
@@ -46,11 +46,11 @@ TEST(Example, Test01_Led)
 	std::cout << str << std::endl;
 }
 
-TEST(Example, Test02_WATERLEVEL)
+TEST(Example, Test02_WaterLevel)
 {
 	// GTEST_SKIP();
 	static const int PIN_NUMBER = test_config0::PIN_NUMBER_WATERLEVEL;
-	auto itc_pigpio_01 = ext::grpc_api::PiGpio(test_config0::SERVICE_URL);
+	auto itc_pigpio_01 = ext::grpc_client_api::PiGpio(test_config0::SERVICE_URL);
 
 	itc_pigpio_01.gpioSetMode(PIN_NUMBER, EnumPiGpioMode::PI_INPUT);
 	for(int i = 0, j = 16; i < j; i++)
@@ -74,8 +74,8 @@ TEST(Example, Test03_WaterLevel_Advance)
 {
 	// GTEST_SKIP();
 	static const int PIN_NUMBER = test_config0::PIN_NUMBER_WATERLEVEL;
-	auto itc_pigpio_01 = ext::grpc_api::PiGpio(test_config0::SERVICE_URL);
-	auto itc_pigpio_02 = ext::grpc_api::PiGpioAdvance(test_config0::SERVICE_URL);
+	auto itc_pigpio_01 = ext::grpc_client_api::PiGpio(test_config0::SERVICE_URL);
+	auto itc_pigpio_02 = ext::grpc_client_api::PiGpioAdvance(test_config0::SERVICE_URL);
 
 	auto times = 0;
 	auto is_ok = false;

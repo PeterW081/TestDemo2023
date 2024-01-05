@@ -46,8 +46,12 @@ TEST(Example, Test01_RemoteLed)
 		case RemoteLed::EnumStatus::OFF:
 			std::cout << "OFF" << std::endl;
 			break;
+		case RemoteLed::EnumStatus::ERROR:
 		case RemoteLed::EnumStatus::NULL_VALUE:
 			std::cout << "Error" << std::endl;
+			break;
+		default:
+		case RemoteLed::EnumStatus::LOADING:
 			break;
 	}
 	sleep(3);

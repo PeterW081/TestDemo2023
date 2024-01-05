@@ -1,16 +1,16 @@
 #pragma once
-#include "grpc_api_pigpio.h"
+#include "grpc_client_api_pigpio.h"
 
 namespace ext::device_ctrl
 {
 	class RemoteLed;
 }
 
-class ext::device_ctrl::RemoteLed : protected ext::grpc_api::PiGpio
+class ext::device_ctrl::RemoteLed : protected ext::grpc_client_api::PiGpio
 {
   public:
 	enum class EnumStatus : unsigned;
-	static EnumStatus Cast_To_EnumStatus(ext::grpc_api::EnumPiGpioLevel);
+	static EnumStatus Cast_To_EnumStatus(ext::grpc_client_api::EnumPiGpioLevel);
 
   public:
 	explicit RemoteLed(std::string, unsigned);

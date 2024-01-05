@@ -1,5 +1,5 @@
 #pragma once
-#include "grpc_api_pigpio.h"
+#include "grpc_client_api_pigpio.h"
 
 namespace ext::device_ctrl
 {
@@ -7,12 +7,12 @@ namespace ext::device_ctrl
 }
 
 class ext::device_ctrl::RemoteWaterLevel
-	: protected ext::grpc_api::PiGpio
-	, protected ext::grpc_api::PiGpioAdvance
+	: protected ext::grpc_client_api::PiGpio
+	, protected ext::grpc_client_api::PiGpioAdvance
 {
   public:
 	enum class EnumStatus : unsigned;
-	static EnumStatus Cast_To_EnumStatus(ext::grpc_api::EnumPiGpioLevel);
+	static EnumStatus Cast_To_EnumStatus(ext::grpc_client_api::EnumPiGpioLevel);
 
   public:
 	explicit RemoteWaterLevel(std::string, unsigned);

@@ -8,7 +8,7 @@ namespace ext::pigpio
 }
 
 /// ext::grpc_server::ServiceImplPiGpio
-grpc::Status ext::grpc_server::ServiceImplPiGpio::gpioInitialise(grpc::ServerContext* context, const define0::Empty* request, define0::MsgInt32* response)
+grpc::Status ext::grpc_server::ServiceImplPiGpio::gpioInitialise(grpc::ServerContext* context, const define0::MsgEmpty* request, define0::MsgInt32* response)
 {
 	auto result = ext::pigpio::gpioInitialise();
 	//-
